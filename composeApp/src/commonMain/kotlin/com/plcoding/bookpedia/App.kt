@@ -15,7 +15,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 import cmp_bookpedia.composeapp.generated.resources.Res
 import cmp_bookpedia.composeapp.generated.resources.compose_multiplatform
-
 @Composable
 @Preview
 fun App() {
