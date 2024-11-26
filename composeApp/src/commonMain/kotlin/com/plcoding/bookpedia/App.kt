@@ -36,4 +36,5 @@ fun App() {
     }
 }
 
-//
+// Presentation -> Domain <- Data
+//Presentation and Data can access Domain properties, but domain cannot access presentation or data
