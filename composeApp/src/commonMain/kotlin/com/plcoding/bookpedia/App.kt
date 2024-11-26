@@ -36,5 +36,7 @@ fun App() {
     }
 }
 
+// All the structure regarding books must be separate inside this 3 layers, and not in whole project,
+// Every feature must contain this 3 following structure to maintain as scalable project
 // Presentation -> Domain <- Data
-//Presentation and Data can access Domain properties, but domain cannot access presentation or data
+// Presentation and Data can access Domain properties, but domain cannot access presentation or data
