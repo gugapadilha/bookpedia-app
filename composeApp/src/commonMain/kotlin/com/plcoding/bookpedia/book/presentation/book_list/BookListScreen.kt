@@ -6,6 +6,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.plcoding.bookpedia.book.domain.Book
 import org.koin.compose.viewmodel.koinViewModel
 
+//provides a direct instance of the actual book list screen, but deal with navigation and viewmodel
+//that way the actual book list screen only deal with the ui, so its better to test it
 @Composable
 fun BookListScreenRoot(
     viewModel: BookListViewModel = koinViewModel(),
