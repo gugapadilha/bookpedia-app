@@ -59,7 +59,5 @@ private fun BookListScreen(
             },
             modifier = Modifier.widthIn(max = 400.dp).fillMaxWidth().padding(16.dp)
         )
-
     }
-
 }

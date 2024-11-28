@@ -22,5 +22,4 @@ private fun BookSearchBarPreview() {
         onImeSearch = {},
         modifier = Modifier.fillMaxWidth()
     )
-
 }
