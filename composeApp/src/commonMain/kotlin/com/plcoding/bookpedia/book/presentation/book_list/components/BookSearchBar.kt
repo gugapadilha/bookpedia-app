@@ -99,4 +99,4 @@ fun BookSearchBar(
                 .minimumInteractiveComponentSize()
         )
     }
-
+}
