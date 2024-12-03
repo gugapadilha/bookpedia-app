@@ -49,6 +49,8 @@ private val books = (1  .. 100).map {
 private fun BookListScreenPreview() {
     BookListScreen(
         state = BookListState(
-        )
-    ) { }
+            searchResults = books
+        ),
+        onAction =  {}
+    )
 }
