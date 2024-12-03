@@ -28,6 +28,8 @@ private fun BookSearchBarPreview() {
     )
 }
 
+
+
 private val books = (1  .. 100).map {
     Book(
        id = it.toString(),
@@ -43,7 +45,6 @@ private val books = (1  .. 100).map {
         numEditions = 3
     )
 }
-
 @Preview
 @Composable
 private fun BookListScreenPreview() {
