@@ -24,6 +24,7 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cmp_bookpedia.composeapp.generated.resources.Res
 import cmp_bookpedia.composeapp.generated.resources.favorite_results
+import cmp_bookpedia.composeapp.generated.resources.no_favorite_results
 import cmp_bookpedia.composeapp.generated.resources.no_search_results
 import cmp_bookpedia.composeapp.generated.resources.search_results
 import com.plcoding.bookpedia.book.domain.Book
@@ -76,7 +78,11 @@ fun BookListScreen(
 
     val pagerState = rememberPagerState { 2 }
     val searchResultsListState = rememberLazyListState()
-    val favoriteSearchResultsState = rememberLazyListState()
+    val favoriteResultsListState = rememberLazyListState()
+
+    LaunchedEffect(state.searchResults){
+        searchResultsListState.animateScrollToItem(0)
+    }
 
     Column(
         modifier = Modifier.fillMaxSize().background(DarkBlue)
@@ -177,16 +183,30 @@ fun BookListScreen(
                                                     onAction(BookListAction.OnBookClick(it))
                                                 },
                                                 modifier = Modifier.fillMaxSize(),
-                                                scrollState =
+                                                scrollState = searchResultsListState
                                             )
                                         }
                                     }
-
-
                                 }
                             }
                             1 -> {
-
+                                if (state.favoriteBooks.isEmpty()){
+                                    Text(text = stringResource(Res.string.no_favorite_results),
+                                        textAlign = TextAlign.Center,
+                                        style = MaterialTheme.typography.headlineSmall,
+                                        color = MaterialTheme.colorScheme.error
+                                    )
+                                }
+                                else {
+                                    BookList(
+                                        books = state.favoriteBooks,
+                                        onBookClick = {
+                                            onAction(BookListAction.OnBookClick(it))
+                                        },
+                                        modifier = Modifier.fillMaxSize(),
+                                        scrollState = favoriteResultsListState
+                                    )
+                                }
                             }
                         }
                     }

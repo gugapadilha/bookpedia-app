@@ -5,4 +5,5 @@
     <string name= "search_results">Search Results</string>
     <string name= "favorite_results">Favorite Results</string>
     <string name= "no_search_results">Oops, there aren't any books for your search query</string>
+    <string name= "no_favorite_results">You haven't saved any favorite books yet</string>
 </resources>
