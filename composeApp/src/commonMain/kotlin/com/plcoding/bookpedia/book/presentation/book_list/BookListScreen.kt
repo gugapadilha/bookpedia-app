@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -18,6 +20,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.plcoding.bookpedia.book.domain.Book
 import com.plcoding.bookpedia.book.presentation.book_list.components.BookSearchBar
 import com.plcoding.bookpedia.core.presentation.DarkBlue
+import com.plcoding.bookpedia.core.presentation.DesertWhite
 import org.koin.compose.viewmodel.koinViewModel
 
 //provides a direct instance of the actual book list screen, but deal with navigation and viewmodel
@@ -43,21 +46,32 @@ fun BookListScreenRoot(
 }
 
 @Composable
- fun BookListScreen(
+fun BookListScreen(
     state: BookListState,
     onAction: (BookListAction) -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
-    Column(modifier = Modifier.fillMaxSize().background(DarkBlue)
-        .statusBarsPadding(),
-        horizontalAlignment = Alignment.CenterHorizontally){
+    Column(
+        modifier = Modifier.fillMaxSize().background(DarkBlue)
+            .statusBarsPadding(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         BookSearchBar(
             searchQuery = state.searchQuery,
-            onSearchQueryChange = { onAction(BookListAction.OnSearchQueryChange(it))},
+            onSearchQueryChange = { onAction(BookListAction.OnSearchQueryChange(it)) },
             onImeSearch = {
                 keyboardController?.hide()
             },
             modifier = Modifier.widthIn(max = 400.dp).fillMaxWidth().padding(16.dp)
         )
+        Surface(
+            modifier = Modifier.weight(1f).fillMaxWidth(),
+            color = DesertWhite,
+            shape = RoundedCornerShape(
+                topStart = 32.dp, topEnd = 32.dp
+            )
+        ) {
+
+        }
     }
 }
