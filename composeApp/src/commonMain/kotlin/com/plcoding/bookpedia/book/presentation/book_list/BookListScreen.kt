@@ -12,6 +12,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
+import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,6 +24,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cmp_bookpedia.composeapp.generated.resources.Res
+import cmp_bookpedia.composeapp.generated.resources.favorite_results
 import cmp_bookpedia.composeapp.generated.resources.search_results
 import com.plcoding.bookpedia.book.domain.Book
 import com.plcoding.bookpedia.book.presentation.book_list.components.BookSearchBar
@@ -84,7 +87,13 @@ fun BookListScreen(
                     selectedTabIndex = state.selectedTabIndex,
                     modifier = Modifier.padding(vertical = 12.dp)
                         .widthIn(max = 700.dp)
-                        .fillMaxWidth()
+                        .fillMaxWidth(),
+                    indicator = { tabPositions ->
+                        TabRowDefaults.SecondaryIndicator(
+                            color = SandYellow,
+                            modifier = Modifier.tabIndicatorOffset(tabPositions[state.selectedTabIndex])
+                        )
+                    }
                 ){
                     Tab(
                         selected = state.selectedTabIndex == 0,
@@ -97,6 +106,20 @@ fun BookListScreen(
                     ){
                         Text(
                             text = stringResource(Res.string.search_results),
+                            modifier = Modifier.padding( vertical = 12.dp)
+                        )
+                    }
+                    Tab(
+                        selected = state.selectedTabIndex == 1,
+                        onClick = {
+                            onAction(BookListAction.OnTabSelected(1))
+                        },
+                        modifier = Modifier.weight(1f),
+                        selectedContentColor = SandYellow,
+                        unselectedContentColor = Color.Black.copy(alpha = 0.5f)
+                    ){
+                        Text(
+                            text = stringResource(Res.string.favorite_results),
                             modifier = Modifier.padding( vertical = 12.dp)
                         )
                     }
