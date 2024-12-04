@@ -2,12 +2,16 @@ package com.plcoding.bookpedia.book.presentation.book_list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
@@ -62,6 +66,9 @@ fun BookListScreen(
     onAction: (BookListAction) -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
+
+    val pagerState = rememberPagerState { 2 }
+
     Column(
         modifier = Modifier.fillMaxSize().background(DarkBlue)
             .statusBarsPadding(),
@@ -124,6 +131,10 @@ fun BookListScreen(
                         )
                     }
                 }
+                Spacer(modifier = Modifier.height(4.dp))
+                HorizontalPager(
+                    state =
+                )
             }
         }
     }
