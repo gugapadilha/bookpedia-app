@@ -7,6 +7,8 @@ import com.plcoding.bookpedia.core.domain.Result
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 
+//reified is used to access the generic type in execution time(normally generic types are
+//extinguish in the compile moments, so, using reified we prevent that
 suspend inline fun <reified T> responseToResult(
     response: HttpResponse
 ) :Result <T, DataError.Remote>{
