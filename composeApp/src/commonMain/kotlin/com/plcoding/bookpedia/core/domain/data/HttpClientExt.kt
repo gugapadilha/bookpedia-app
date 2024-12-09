@@ -7,9 +7,9 @@ import com.plcoding.bookpedia.core.domain.Result
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 
-//reified is used to access the generic type in execution time(normally generic types are
+//REIFIED is used to access the generic type in execution time(normally generic types are
 //extinguish in the compile moments, so, using reified we prevent that.
-//inline function is used to include the body in which case that is called so it can access reified
+//INLINE function is used to include the body in which case that is called so it can access reified
 suspend inline fun <reified T> responseToResult(
     response: HttpResponse
 ) :Result <T, DataError.Remote>{
