@@ -1,5 +1,6 @@
 package com.plcoding.bookpedia.book.data.network
 
+import com.plcoding.bookpedia.book.data.dto.SearchResponseDto
 import com.plcoding.bookpedia.book.domain.Book
 import com.plcoding.bookpedia.core.domain.DataError
 import com.plcoding.bookpedia.core.domain.DataError.Remote
@@ -17,7 +18,7 @@ class KtorRemoteBookDataSource(
     suspend fun searchBooks(
         query: String,
         resultLimit: Int? = null
-    ) : Result<List<Book>, DataError.Remote>{
+    ) : Result<SearchResponseDto, DataError.Remote>{
         return safeCall {
             httpClient.get(
                 urlString = "$BASE_URL/search.json"
