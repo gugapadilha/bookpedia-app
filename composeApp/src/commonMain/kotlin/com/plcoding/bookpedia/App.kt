@@ -1,6 +1,8 @@
 package com.plcoding.bookpedia
 
 import androidx.compose.runtime.*
+import com.plcoding.bookpedia.book.data.network.KtorRemoteBookDataSource
+import com.plcoding.bookpedia.book.data.repository.DefaultBookRepository
 import com.plcoding.bookpedia.book.presentation.book_list.BookListScreenRoot
 import com.plcoding.bookpedia.book.presentation.book_list.BookListViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -10,7 +12,13 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 fun App() {
     BookListScreenRoot(
-        viewModel = remember { BookListViewModel() },
+        viewModel = remember { BookListViewModel(
+            bookRepository = DefaultBookRepository(
+                remoteBookDataSource = KtorRemoteBookDataSource(
+
+                )
+            )
+        ) },
         onBookClick = {
 
         }
