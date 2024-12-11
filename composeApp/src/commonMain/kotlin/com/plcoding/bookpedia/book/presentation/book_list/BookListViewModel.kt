@@ -93,7 +93,13 @@ class BookListViewModel(
                         searchResults = searchResults
                     ) }
                 }
-
+                .onError { error ->
+                    _state.update { it.copy(
+                        searchResults = emptyList(),
+                        isLoading = false,
+                        errorMessage =
+                    ) }
+                }
         }
     }
 }
