@@ -12,6 +12,7 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
+//used to know which platform are we calling to initialize koin
 expect val platformModule: Module
 
 val sharedModule = module {
