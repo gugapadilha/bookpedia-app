@@ -17,7 +17,7 @@ fun App(engine: HttpClientEngine) {
         viewModel = remember { BookListViewModel(
             bookRepository = DefaultBookRepository(
                 remoteBookDataSource = KtorRemoteBookDataSource(
-                    httpClient = HttpClientFactory.create(
+                    httpClient = HttpClientFactory.create(engine
 
                     )
                 )
