@@ -9,8 +9,4 @@ fun MainViewController() = ComposeUIViewController(
     configure = {
         initKoin()
     }
-) { App(
-    engine = remember {
-        Darwin.create()
-    }
-) }
+) { App() }

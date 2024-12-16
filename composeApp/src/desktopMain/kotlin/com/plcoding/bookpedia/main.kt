@@ -14,9 +14,7 @@ fun main() {
             onCloseRequest = ::exitApplication,
             title = "CMP-Bookpedia",
         ) {
-            App(
-                engine = remember { OkHttp.create() }
-            )
+            App()
         }
     }
 }
