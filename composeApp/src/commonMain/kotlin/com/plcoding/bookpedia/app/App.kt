@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -38,9 +39,16 @@ fun App() {
                     val viewModel = koinViewModel<BookListViewModel>()
                     val selectedBookViewModel =
                         it.sharedKoinViewModel<SelectedBookViewModel>(navController)
+
+                    //when came to the screen, the state will reset, so when click in another book will bring only the specific prop of it
+                    LaunchedEffect(true) {
+                        selectedBookViewModel.onSelectBook(null)
+                    }
+
                     BookListScreenRoot(
                         viewModel = viewModel,
                         onBookClick = { book ->
+                            selectedBookViewModel.onSelectBook(book)
                             navController.navigate(
                                 Route.BookDetail(book.id)
                             )
@@ -51,12 +59,12 @@ fun App() {
                 composable<Route.BookDetail> { entry ->
                     val selectedBookViewModel =
                         entry.sharedKoinViewModel<SelectedBookViewModel>(navController)
-
+                    val selectedBook by selectedBookViewModel.selectedBook.collectAsStateWithLifecycle()
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text("Book Detail screen! The id is ${args.id}")
+                        Text("Book Detail screen! ${selectedBook}")
                     }
 
                 }
@@ -67,7 +75,7 @@ fun App() {
     }
 }
 
-
+//now the selected book view model is shared to BOOK DETAIL and BOOK LIST
 @Composable
 private inline fun <reified T: ViewModel> NavBackStackEntry.sharedKoinViewModel(
     navController: NavController
