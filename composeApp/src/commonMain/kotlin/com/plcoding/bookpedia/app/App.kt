@@ -15,6 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.plcoding.bookpedia.book.presentation.SelectedBookViewModel
 import com.plcoding.bookpedia.book.presentation.book_list.BookListScreenRoot
 import com.plcoding.bookpedia.book.presentation.book_list.BookListViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -35,6 +36,8 @@ fun App() {
             ) {
                 composable<Route.BookList> {
                     val viewModel = koinViewModel<BookListViewModel>()
+                    val selectedBookViewModel =
+                        it.sharedKoinViewModel<SelectedBookViewModel>(navController)
                     BookListScreenRoot(
                         viewModel = viewModel,
                         onBookClick = { book ->
@@ -46,7 +49,8 @@ fun App() {
                     )
                 }
                 composable<Route.BookDetail> { entry ->
-                    val args = entry.toRoute<Route.BookDetail>()
+                    val selectedBookViewModel =
+                        entry.sharedKoinViewModel<SelectedBookViewModel>(navController)
 
                     Box(
                         modifier = Modifier.fillMaxSize(),
