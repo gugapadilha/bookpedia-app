@@ -17,6 +17,7 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.plcoding.bookpedia.book.presentation.SelectedBookViewModel
+import com.plcoding.bookpedia.book.presentation.book_detail.BookDetailAction
 import com.plcoding.bookpedia.book.presentation.book_detail.BookDetailScreenRoot
 import com.plcoding.bookpedia.book.presentation.book_detail.BookDetailViewModel
 import com.plcoding.bookpedia.book.presentation.book_list.BookListScreenRoot
@@ -63,6 +64,12 @@ fun App() {
                         entry.sharedKoinViewModel<SelectedBookViewModel>(navController)
                     val viewModel = koinViewModel<BookDetailViewModel>()
                     val selectedBook by selectedBookViewModel.selectedBook.collectAsStateWithLifecycle()
+
+                    LaunchedEffect(selectedBook){
+                        selectedBook?.let {
+                            viewModel.onAction(BookDetailAction.onSelectedBookChange(it))
+                        }
+                    }
 
                     BookDetailScreenRoot(
                         viewModel = viewModel,
