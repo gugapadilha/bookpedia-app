@@ -12,7 +12,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
 import cmp_bookpedia.composeapp.generated.resources.Res
 import cmp_bookpedia.composeapp.generated.resources.book_cover
 import coil3.compose.rememberAsyncImagePainter
@@ -46,18 +49,26 @@ fun BlurredImageBackground(
         Column(modifier = Modifier.fillMaxSize()) {
             Box(
                 modifier = Modifier
-                    .weight(0.3f)
+                    .weight(0.3f) //will occupant 30% of the screen
                     .fillMaxWidth()
                     .background(DarkBlue)
             ){
                 imageLoadResult?.getOrNull()?.let { painter ->
                     Image(
                         painter = painter,
-                        contentDescription = stringResource(Res.string.book_cover)
+                        contentDescription = stringResource(Res.string.book_cover),
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .blur(20.dp)
                     )
                 }
 
             }
+            Box(
+                modifier = Modifier
+                    .weight(0.7f) //will occupant 70% of screen
+            )
         }
     }
 }
