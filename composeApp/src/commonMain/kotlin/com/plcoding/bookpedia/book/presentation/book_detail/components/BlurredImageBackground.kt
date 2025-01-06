@@ -69,9 +69,12 @@ fun BlurredImageBackground(
             }else {
                 Result.failure(Exception("Invalid image dimensions"))
             }
+        },
+        onError = {
+            it.result.throwable.printStackTrace()
         }
     )
-    Box {
+    Box(modifier = modifier) {
         Column(modifier = Modifier.fillMaxSize()) {
             Box(
                 modifier = Modifier
@@ -172,6 +175,7 @@ fun BlurredImageBackground(
                             }
                         }
                     }
+                    content()
                 }
 
             }
