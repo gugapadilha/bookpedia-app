@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
@@ -44,6 +45,7 @@ import cmp_bookpedia.composeapp.generated.resources.mark_as_favorite
 import cmp_bookpedia.composeapp.generated.resources.remove_from_favorites
 import coil3.compose.rememberAsyncImagePainter
 import com.plcoding.bookpedia.core.presentation.DarkBlue
+import com.plcoding.bookpedia.core.presentation.DesertWhite
 import com.plcoding.bookpedia.core.presentation.SandYellow
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -55,8 +57,8 @@ fun BlurredImageBackground(
     onFavoriteClick: () -> Unit,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit)
-{
+    content: @Composable () -> Unit
+) {
     var imageLoadResult by remember {
         mutableStateOf<Result<Painter>?>(null)
     }
@@ -64,9 +66,9 @@ fun BlurredImageBackground(
         model = imageUrl,
         onSuccess = {
             val size = it.painter.intrinsicSize
-            imageLoadResult = if (size.width > 1 && size.height > 1){
+            imageLoadResult = if(size.width > 1 && size.height > 1) {
                 Result.success(it.painter)
-            }else {
+            } else {
                 Result.failure(Exception("Invalid image dimensions"))
             }
         },
@@ -74,115 +76,123 @@ fun BlurredImageBackground(
             it.result.throwable.printStackTrace()
         }
     )
+
     Box(modifier = modifier) {
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
             Box(
                 modifier = Modifier
-                    .weight(0.3f) //will occupant 30% of the screen
+                    .weight(0.3f)
                     .fillMaxWidth()
                     .background(DarkBlue)
-            ){
-                imageLoadResult?.getOrNull()?.let { painter ->
-                    Image(
-                        painter = painter,
-                        contentDescription = stringResource(Res.string.book_cover),
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .blur(20.dp)
-                    )
-                }
-                IconButton(
-                    onClick = onBackClick,
-                    modifier = Modifier.align(Alignment.TopStart)
-                        .padding(top = 16.dp, start = 16.dp)
-                        .statusBarsPadding()
-                ){
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(Res.string.go_back),
-                        tint = Color.White
-                    )
-                }
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Spacer(modifier = Modifier.fillMaxHeight(0.15f))
-                    ElevatedCard(
-                        modifier = Modifier
-                            .width(200.dp)
-                            .aspectRatio(2 / 3f),
-                        shape = RoundedCornerShape(8.dp),
-                        colors = CardDefaults.elevatedCardColors(
-                            contentColor = Color.Transparent
-                        ),
-                        elevation = CardDefaults.elevatedCardElevation(
-                            defaultElevation = 15.dp
-                        )
-                    ) {
-                        AnimatedContent(
-                            targetState = imageLoadResult
-                        ) { result ->
-                            when(result) {
-                                null -> CircularProgressIndicator()
-                                else -> {
-                                    Box{
-                                        Image(
-                                            painter = if (result.isSuccess) painter else {
-                                                painterResource(Res.drawable.book_error_2)
-                                            },
-                                            contentDescription = stringResource(Res.string.book_cover),
-                                            modifier = Modifier
-                                                .fillMaxSize()
-                                                .background(Color.Transparent),
-                                            contentScale = if(result.isSuccess){
-                                                ContentScale.Crop
-                                            } else {
-                                                ContentScale.Fit
-                                            }
-                                        )
-                                        IconButton(
-                                            onClick = onFavoriteClick,
-                                            modifier = Modifier.align(Alignment.BottomEnd)
-                                                .background(
-                                                    brush = Brush.radialGradient(
-                                                        colors = listOf(
-                                                            SandYellow,
-                                                            Color.Transparent
-                                                        ),
-                                                        radius = 70f
-                                                    )
-                                                )
-                                        ) {
-                                            Icon(
-                                                imageVector = if (isFavorite){
-                                                    Icons.Filled.Favorite
-                                                } else {
-                                                    Icons.Outlined.FavoriteBorder
-                                                },
-                                                tint = Color.Red,
-                                                contentDescription = if (isFavorite){
-                                                    stringResource(Res.string.remove_from_favorites)
-                                                } else {
-                                                    stringResource(Res.string.mark_as_favorite)
-                                                }
-                                            )
-                                        }
+            ) {
+                Image(
+                    painter = painter,
+                    contentDescription = stringResource(Res.string.book_cover),
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .blur(20.dp)
+                )
+            }
 
+            Box(
+                modifier = Modifier
+                    .weight(0.7f)
+                    .fillMaxWidth()
+                    .background(DesertWhite)
+            )
+        }
+
+        IconButton(
+            onClick = onBackClick,
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .padding(top = 16.dp, start = 16.dp)
+                .statusBarsPadding()
+        ) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = stringResource(Res.string.go_back),
+                tint = Color.White
+            )
+        }
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Spacer(modifier = Modifier.fillMaxHeight(0.15f))
+            ElevatedCard(
+                modifier = Modifier
+                    .height(230.dp)
+                    .aspectRatio(2 / 3f),
+                shape = RoundedCornerShape(8.dp),
+                elevation = CardDefaults.elevatedCardElevation(
+                    defaultElevation = 15.dp
+                )
+            ) {
+                AnimatedContent(
+                    targetState = imageLoadResult
+                ) { result ->
+                    when(result) {
+                        null -> Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+
+                        }
+                        else -> {
+                            Box {
+                                Image(
+                                    painter = if(result.isSuccess) painter else {
+                                        painterResource(Res.drawable.book_error_2)
+                                    },
+                                    contentDescription = stringResource(Res.string.book_cover),
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .background(Color.Transparent),
+                                    contentScale = if(result.isSuccess) {
+                                        ContentScale.Crop
+                                    } else {
+                                        ContentScale.Fit
                                     }
+                                )
+                                IconButton(
+                                    onClick = onFavoriteClick,
+                                    modifier = Modifier
+                                        .align(Alignment.BottomEnd)
+                                        .background(
+                                            brush = Brush.radialGradient(
+                                                colors = listOf(
+                                                    SandYellow, Color.Transparent
+                                                ),
+                                                radius = 70f
+                                            )
+                                        )
+                                ) {
+                                    Icon(
+                                        imageVector = if(isFavorite) {
+                                            Icons.Filled.Favorite
+                                        } else {
+                                            Icons.Outlined.FavoriteBorder
+                                        },
+                                        tint = Color.Red,
+                                        contentDescription = if(isFavorite) {
+                                            stringResource(Res.string.remove_from_favorites)
+                                        } else {
+                                            stringResource(Res.string.mark_as_favorite)
+                                        }
+                                    )
                                 }
                             }
                         }
                     }
-                    content()
                 }
-
             }
-            Box(
-                modifier = Modifier
-                    .weight(0.7f) //will occupant 70% of screen
-            )
+            content()
         }
     }
 }
