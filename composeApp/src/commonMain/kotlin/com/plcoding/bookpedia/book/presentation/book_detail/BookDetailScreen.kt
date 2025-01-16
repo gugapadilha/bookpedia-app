@@ -1,9 +1,18 @@
 package com.plcoding.bookpedia.book.presentation.book_detail
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.plcoding.bookpedia.book.presentation.book_detail.components.BlurredImageBackground
 
@@ -42,6 +51,19 @@ private fun BookDetailScreen(
         },
         modifier = Modifier.fillMaxSize()
     ) {
+        if (state.book != null) {
+            Column(
+                modifier = Modifier
+                    .widthIn(max = 700.dp)
+                    .fillMaxWidth()
+                    .padding(
+                        vertical = 16.dp,
+                        horizontal = 24.dp
+                    )
+                    .verticalScroll(rememberScrollState()),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){}
+        }
 
     }
 }
