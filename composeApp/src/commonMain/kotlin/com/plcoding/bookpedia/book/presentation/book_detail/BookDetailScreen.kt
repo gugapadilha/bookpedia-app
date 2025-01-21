@@ -89,12 +89,14 @@ private fun BookDetailScreen(
                     )
                     .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally
-            ){
-                Text(text = state.book.title,
+            ) {
+                Text(
+                    text = state.book.title,
                     style = MaterialTheme.typography.headlineMedium,
                     textAlign = TextAlign.Center
                 )
-                Text(text = state.book.authors.joinToString(),
+                Text(
+                    text = state.book.authors.joinToString(),
                     style = MaterialTheme.typography.headlineSmall,
                     textAlign = TextAlign.Center
                 )
@@ -109,9 +111,10 @@ private fun BookDetailScreen(
                         ) {
                             BookChip(modifier = Modifier) {
                                 Text(
-                                    text = "${round( rating * 10) / 10.0}"
+                                    text = "${round(rating * 10) / 10.0}"
                                 )
-                                Icon(imageVector = Icons.Default.Star,
+                                Icon(
+                                    imageVector = Icons.Default.Star,
                                     contentDescription = null,
                                     tint = SandYellow
                                 )
@@ -130,12 +133,12 @@ private fun BookDetailScreen(
                         }
                     }
                 }
-                if (state.book.languages.isNotEmpty()){
+                if (state.book.languages.isNotEmpty()) {
                     TitledContent(
                         title = stringResource(Res.string.languages),
                         modifier = Modifier
                             .padding(vertical = 8.dp)
-                    ){
+                    ) {
                         FlowRow(
                             horizontalArrangement = Arrangement.Center,
                             modifier = Modifier.wrapContentSize(Alignment.Center)
@@ -144,7 +147,7 @@ private fun BookDetailScreen(
                                 BookChip(
                                     size = ChipSize.SMALL,
                                     modifier = Modifier.padding(2.dp)
-                                ){
+                                ) {
                                     Text(
                                         text = language.uppercase(),
                                         style = MaterialTheme.typography.titleSmall
@@ -166,30 +169,32 @@ private fun BookDetailScreen(
                         )
                 )
                 if (state.isLoading) {
-                    Box(
-                        modifier = Modifier.fillMaxWidth()
-                            .weight(1f),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator()
-                    }
+                    CircularProgressIndicator()
+//                    Box(
+//                        modifier = Modifier
+//                            .fillMaxWidth()
+//                            .weight(1f),
+//                        contentAlignment = Alignment.Center
+//                    ) {
+//                    }
+                } else {
+                    Text(
+                        text = if (state.book.description.isNullOrBlank()) {
+                            stringResource(Res.string.description_unavailable)
+                        } else {
+                            state.book.description
+                        },
+                        style = MaterialTheme.typography.bodyMedium,
+                        textAlign = TextAlign.Justify,
+                        color = if (state.book.description.isNullOrBlank()) {
+                            Color.Black.copy(alpha = 0.4f)
+                        } else Color.Black,
+                        modifier = Modifier
+                            .padding(vertical = 8.dp)
+                    )
                 }
-                Text(
-                    text = if (state.book.description.isNullOrBlank()) {
-                        stringResource(Res.string.description_unavailable)
-                    } else {
-                        state.book.description
-                    },
-                    style = MaterialTheme.typography.bodyMedium,
-                    textAlign = TextAlign.Justify,
-                    color = if (state.book.description.isNullOrBlank()){
-                        Color.Black.copy(alpha = 0.4f)
-                    } else Color.Black,
-                    modifier = Modifier
-                        .padding(vertical = 8.dp)
-                )
             }
         }
-
     }
 }
+
