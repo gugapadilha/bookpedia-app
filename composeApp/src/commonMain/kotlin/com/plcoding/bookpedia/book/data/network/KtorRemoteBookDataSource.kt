@@ -1,7 +1,7 @@
 package com.plcoding.bookpedia.book.data.network
 
+import com.plcoding.bookpedia.book.data.dto.BookWorkDto
 import com.plcoding.bookpedia.book.data.dto.SearchResponseDto
-import com.plcoding.bookpedia.book.domain.Book
 import com.plcoding.bookpedia.core.domain.DataError
 import com.plcoding.bookpedia.core.domain.DataError.Remote
 import com.plcoding.bookpedia.core.domain.Result
@@ -30,5 +30,13 @@ class KtorRemoteBookDataSource(
             }
         }
 
+    }
+
+    override suspend fun getBookDetails(bookWorkId: String): Result<BookWorkDto, Remote> {
+        return safeCall {
+            httpClient.get(
+                urlString = "$BASE_URL/works/$bookWorkId.json"
+            )
+        }
     }
 }
