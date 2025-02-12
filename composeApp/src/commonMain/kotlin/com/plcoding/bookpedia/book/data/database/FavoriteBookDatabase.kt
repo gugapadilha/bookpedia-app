@@ -9,4 +9,9 @@ import androidx.room.RoomDatabase
 )
 
 abstract class FavoriteBookDatabase: RoomDatabase() {
+    abstract val favoriteBookDao: FavoriteBookDao
+
+    companion object {
+        const val DB_NAME = "book.db"
+    }
 }
