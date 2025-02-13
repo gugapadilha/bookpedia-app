@@ -58,6 +58,6 @@ class DefaultBookRepository(
     }
 
     override suspend fun deleteFromFavorites(id: String) {
-        TODO("Not yet implemented")
+        favoriteBookDao.deleteFavoriteBooks(id)
     }
 }
