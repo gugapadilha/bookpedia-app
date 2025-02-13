@@ -5,8 +5,10 @@ import com.plcoding.bookpedia.book.data.network.RemoteBookDataSource
 import com.plcoding.bookpedia.book.domain.Book
 import com.plcoding.bookpedia.book.domain.BookRepository
 import com.plcoding.bookpedia.core.domain.DataError
+import com.plcoding.bookpedia.core.domain.EmptyResult
 import com.plcoding.bookpedia.core.domain.Result
 import com.plcoding.bookpedia.core.domain.map
+import kotlinx.coroutines.flow.Flow
 
 class DefaultBookRepository(
     private val remoteBookDataSource: RemoteBookDataSource
@@ -23,5 +25,21 @@ class DefaultBookRepository(
         return remoteBookDataSource
             .getBookDetails(bookId)
             .map { it.description }
+    }
+
+    override fun getFavoriteBooks(): Flow<List<Book>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun isBookFavorite(id: String): Flow<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun markAsFavorite(book: Book): EmptyResult<DataError.Local> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteFromFavorites(id: String) {
+        TODO("Not yet implemented")
     }
 }
